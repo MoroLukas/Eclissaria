@@ -6,8 +6,9 @@ public class LifeSystem : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public Sprite halfHeart;
 
-    public int maxLives = 3;
+    public int maxLives = 6;
     private int currentLives;
 
     void Start()
@@ -30,10 +31,18 @@ public class LifeSystem : MonoBehaviour
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i < currentLives)
+            if (i * 2 + 2 <= currentLives)
+            {
                 hearts[i].sprite = fullHeart;
+            }
+            else if (i * 2 < currentLives)
+            {
+                hearts[i].sprite = halfHeart;
+            }
             else
+            {
                 hearts[i].sprite = emptyHeart;
+            }
         }
     }
 }
