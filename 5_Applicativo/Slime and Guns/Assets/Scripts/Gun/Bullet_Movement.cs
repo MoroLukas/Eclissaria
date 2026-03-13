@@ -26,7 +26,7 @@ public class Bullet_Movement : MonoBehaviour
             mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos.z = 0;
             targetSet = true;
-        }else {
+        }else{
             Vector3 direction = mousePos - transform.position;
 
             if (direction.magnitude < 0.1f)
