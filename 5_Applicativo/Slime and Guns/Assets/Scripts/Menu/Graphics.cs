@@ -1,65 +1,62 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Graphics : MonoBehaviour
 {
+    public TMP_Dropdown ResDropDown;
+    public Toggle FullScreenToggle;
 
+    Resolution[] AllResolutions;
+    List<Resolution> SelectedResolutionList = new List<Resolution>();
 
-    public Dropdown resolutionDropdown;
+    int SelectedResolution;
+    bool IsFullScreen;
 
-    Resolution[] resolutions;
-
-
-    private void Start()
+    void Start()
     {
-        resolutions = Screen.resolutions;
+        AllResolutions = Screen.resolutions;
+        IsFullScreen = Screen.fullScreen;
 
-        resolutionDropdown.ClearOptions();
+        List<string> resolutionStringList = new List<string>();
 
-        List<string> options = new List<string>();
-
-        int currentResolutionIndex = 0;
-
-
-        for (int i = 0; i < resolutions.Length; i++)
+        foreach (Resolution res in AllResolutions)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-            
+            string newRes = res.width + " x " + res.height;
 
-            if ((resolutions[i].width == Screen.currentResolution.width) 
-                && (resolutions[i].height == Screen.currentResolution.height))
+            if (!resolutionStringList.Contains(newRes))
             {
-                currentResolutionIndex = i;
+                resolutionStringList.Add(newRes);
+                SelectedResolutionList.Add(res);
             }
         }
 
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
+        ResDropDown.ClearOptions();
+        ResDropDown.AddOptions(resolutionStringList);
 
+        FullScreenToggle.isOn = Screen.fullScreen;
     }
 
-    public void SetResolution (int resolutionIndex)
+    public void ChangeResolution()
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        SelectedResolution = ResDropDown.value;
+
+        Screen.SetResolution(
+            SelectedResolutionList[SelectedResolution].width,
+            SelectedResolutionList[SelectedResolution].height,
+            IsFullScreen
+        );
     }
 
-    public void SetQuality(int qualityIndex)
+    public void ChangeFullScreen()
     {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
+        IsFullScreen = FullScreenToggle.isOn;
 
-    public void SetFullScreen (bool isFullScreen)
-    {
-        Screen.fullScreen = isFullScreen;
-        if (!isFullScreen)
-        {
-            Resolution resolution = Screen.currentResolution;
-            Screen.SetResolution(resolution.width, resolution.height, isFullScreen);
-        }
+        Screen.SetResolution(
+            SelectedResolutionList[SelectedResolution].width,
+            SelectedResolutionList[SelectedResolution].height,
+            IsFullScreen
+        );
     }
 }
