@@ -8,13 +8,15 @@ public class SlimeScript : MonoBehaviour
     public Sprite slime_right_walk;
     private SpriteRenderer spriteRenderer;
 
-    public float speed = 5f;
+    public float speed = 2f;
     public Transform player;
     public float attackDelay = 1f; // secondi
 
     private Rigidbody2D rb;
     private float timerAttack;
     private float timerSprite;
+
+    public float knockback = 4f;
 
     void Start()
     {
@@ -73,4 +75,29 @@ public class SlimeScript : MonoBehaviour
         }
         rb.linearVelocity = direction * speed;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform == player)
+        {
+
+            Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+
+            Vector2 direction = (player.position - transform.position).normalized;
+
+            playerRb.linearVelocity = Vector2.zero;
+            playerRb.AddForce(direction * knockback, ForceMode2D.Impulse);
+
+            rb.AddForce(-direction * knockback/2, ForceMode2D.Impulse);
+            timerAttack = 0;
+            
+            PlayerMovement p = collision.gameObject.GetComponent<PlayerMovement>();
+
+            if (p != null)
+            {
+                p.TakeDamage();
+            }
+        }
+    }
+
 }
