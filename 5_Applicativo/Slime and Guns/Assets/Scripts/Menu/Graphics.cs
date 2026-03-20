@@ -49,13 +49,22 @@ public class Graphics : MonoBehaviour
         );
     }
 
+
+    /*This code was made following this video:
+     Master Unity Resolution Settings: How to change resolution with a DropDown
+    then the code was retouched with chapgpt for a minor bug.*/
     public void ChangeFullScreen()
     {
         IsFullScreen = FullScreenToggle.isOn;
 
+        int index = ResDropDown.value;
+
+        if (index < 0 || index >= SelectedResolutionList.Count)
+            return;
+
         Screen.SetResolution(
-            SelectedResolutionList[SelectedResolution].width,
-            SelectedResolutionList[SelectedResolution].height,
+            SelectedResolutionList[index].width,
+            SelectedResolutionList[index].height,
             IsFullScreen
         );
     }
