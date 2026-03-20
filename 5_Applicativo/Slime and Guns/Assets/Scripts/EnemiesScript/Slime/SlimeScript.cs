@@ -20,6 +20,9 @@ public class SlimeScript : MonoBehaviour
 =======
     public float knockback = 4f;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     void Start()
     {
@@ -72,6 +75,9 @@ public class SlimeScript : MonoBehaviour
 =======
 
         //Sprite
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         if (direction.x < 0)
         {
@@ -82,7 +88,10 @@ public class SlimeScript : MonoBehaviour
             spriteRenderer.sprite = slime_right_still;
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
         rb.linearVelocity = direction * speed;
