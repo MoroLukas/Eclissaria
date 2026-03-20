@@ -16,6 +16,11 @@ public class SlimeScript : MonoBehaviour
     private float timerAttack;
     private float timerSprite;
 
+<<<<<<< Updated upstream
+=======
+    public float knockback = 4f;
+
+>>>>>>> Stashed changes
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,6 +68,11 @@ public class SlimeScript : MonoBehaviour
     void Attack()
     {
         Vector2 direction = (player.position - transform.position).normalized;
+<<<<<<< Updated upstream
+=======
+
+        //Sprite
+>>>>>>> Stashed changes
         if (direction.x < 0)
         {
             spriteRenderer.sprite = slime_left_still;
@@ -71,6 +81,10 @@ public class SlimeScript : MonoBehaviour
         {
             spriteRenderer.sprite = slime_right_still;
         }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         rb.linearVelocity = direction * speed;
     }
 }
