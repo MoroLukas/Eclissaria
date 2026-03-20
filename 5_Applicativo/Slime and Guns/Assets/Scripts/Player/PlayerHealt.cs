@@ -19,12 +19,35 @@ public class LifeSystem : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (damage <= 0)
+        {
+            damage = -damage;
+        }
         currentLives -= damage;
 
         if (currentLives < 0)
+        {
             currentLives = 0;
+        }
+            
 
         UpdateHearts();
+    }
+
+    public int GetLives(int lives)
+    {
+        if (currentLives < 0)
+        {
+            currentLives = 0;
+        }else
+        {
+            if (lives < 0)
+            {
+                lives = -lives;
+            }
+            currentLives += lives;
+        }
+            return currentLives;
     }
 
     void UpdateHearts()
