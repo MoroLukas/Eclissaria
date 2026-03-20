@@ -9,6 +9,7 @@ public class enemy : MonoBehaviour
     public GameObject SmallStainPrefab;
     public GameObject StainPrefab;
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("bullet"))
