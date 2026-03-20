@@ -1,71 +1,38 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class LifeSystem : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
-    public Sprite halfHeart;
+    public int maxHP = 6;
+    public int currentHP;
 
-    public int maxLives = 6;
-    private int currentLives;
+    public event Action OnDeath;
+    public event Action<int, int> OnHealthChanged; // current, max
 
-    void Start()
+    void Start() => currentHP = maxHP;
+
+    public void TakeDamage(int amount)
     {
-        currentLives = maxLives;
-        UpdateHearts();
+        currentHP = Mathf.Max(0, currentHP - amount);
+        OnHealthChanged?.Invoke(currentHP, maxHP);
+        if (currentHP <= 0) Die();
     }
 
-    public void TakeDamage(int damage)
+    public void AddLive(int amount)
     {
-        if (damage <= 0)
-        {
-            damage = -damage;
-        }
-        currentLives -= damage;
-
-        if (currentLives < 0)
-        {
-            currentLives = 0;
-        }
-            
-
-        UpdateHearts();
+        currentHP = Mathf.Min(maxHP, currentHP + amount);
+        OnHealthChanged?.Invoke(currentHP, maxHP);
     }
 
-    public int GetLives(int lives)
+    public void AddMaxHP(int amount)
     {
-        if (currentLives < 0)
-        {
-            currentLives = 0;
-        }else
-        {
-            if (lives < 0)
-            {
-                lives = -lives;
-            }
-            currentLives += lives;
-        }
-            return currentLives;
+        maxHP += amount;
+        currentHP += amount; // o tienilo invariato, scelta di design
+        OnHealthChanged?.Invoke(currentHP, maxHP);
     }
 
-    void UpdateHearts()
+    private void Die()
     {
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i * 2 + 2 <= currentLives)
-            {
-                hearts[i].sprite = fullHeart;
-            }
-            else if (i * 2 < currentLives)
-            {
-                hearts[i].sprite = halfHeart;
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-            }
-        }
+        OnDeath?.Invoke();
     }
 }
