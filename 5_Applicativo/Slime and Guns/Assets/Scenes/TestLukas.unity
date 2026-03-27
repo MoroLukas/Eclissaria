@@ -9033,8 +9033,6 @@ MonoBehaviour:
   speed: 2
   acceleration: 10
   deceleration: 5
-  invincibilityTime: 1
-  flashInterval: 0.05
 --- !u!212 &1538349951
 SpriteRenderer:
   serializedVersion: 2
@@ -9123,7 +9121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHP: 6
-  currentHP: 3
+  currentHP: 6
+  invincibilityTime: 1
+  flashInterval: 0.05
 --- !u!1 &1616028709
 GameObject:
   m_ObjectHideFlags: 0
