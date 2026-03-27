@@ -9121,7 +9121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHP: 6
-  currentHP: 3
+  currentHP: 6
   invincibilityTime: 1
   flashInterval: 0.05
 --- !u!1 &1616028709
