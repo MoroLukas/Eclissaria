@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private GameObject gameOverScreen;
 
     void Awake()
     {
@@ -28,13 +27,22 @@ public class GameManager : MonoBehaviour
 
     private void HandleGameOver()
     {
-        gameOverScreen.SetActive(true);
+        SceneManager.LoadScene("GameOver");
         Time.timeScale = 0f; // pausa il gioco
     }
+
 
     public void RestartRun()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //Ricarica la scena attuale per reettare tutto
+        SceneManager.LoadScene("TestLukas");
+    }
+
+    public void ReturnToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("TestLukas");
     }
 }
