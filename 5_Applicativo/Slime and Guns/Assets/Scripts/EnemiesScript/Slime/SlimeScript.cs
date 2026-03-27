@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SlimeScript : MonoBehaviour
 {
@@ -74,7 +74,7 @@ public class SlimeScript : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // Se c'� un muro, prova a deviare (destra o sinistra)
+            // Se c'è un muro, prova a deviare (destra o sinistra)
             Vector2 right = new Vector2(direction.y, -direction.x);
             Vector2 left = new Vector2(-direction.y, direction.x);
 
@@ -108,23 +108,16 @@ public class SlimeScript : MonoBehaviour
     {
         if (collision.transform == player)
         {
-
             Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-
             Vector2 direction = (player.position - transform.position).normalized;
 
             playerRb.linearVelocity = Vector2.zero;
             playerRb.AddForce(direction * knockback, ForceMode2D.Impulse);
-
-            rb.AddForce(-direction * knockback/2, ForceMode2D.Impulse);
+            rb.AddForce(-direction * knockback / 2, ForceMode2D.Impulse);
             timerAttack = 0;
-            
-            PlayerMovement p = collision.gameObject.GetComponent<PlayerMovement>();
 
-            if (p != null)
-            {
-                p.TakeDamage();
-            }
+            PlayerHealth ph = collision.gameObject.GetComponent<PlayerHealth>(); // ← cambiato
+            ph?.TakeDamage(1);
         }
     }
 
