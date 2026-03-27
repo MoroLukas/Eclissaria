@@ -28,6 +28,8 @@ public class SlimeScript : MonoBehaviour
     public GameObject SmallStainPrefab;
     public GameObject StainPrefab;
 
+    public Transform stainPoint;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -140,16 +142,16 @@ public class SlimeScript : MonoBehaviour
 
         if (currentHits == 1)
         {
-            Instantiate(SmallStainPrefab, transform.position, Quaternion.identity);
+            Instantiate(SmallStainPrefab, stainPoint.position, Quaternion.identity);
         }
         else if (currentHits == 2)
         {
-            Instantiate(StainPrefab, transform.position, Quaternion.identity);
+            Instantiate(StainPrefab, stainPoint.position, Quaternion.identity);
         }
         else if (currentHits >= maxHits)
         {
             if (deathEffect != null)
-                Instantiate(deathEffect, transform.position, Quaternion.identity);
+                Instantiate(deathEffect, stainPoint.position, Quaternion.identity);
 
             Destroy(gameObject);
         }

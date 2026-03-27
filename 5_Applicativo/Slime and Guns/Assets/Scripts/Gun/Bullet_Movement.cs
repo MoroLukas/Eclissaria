@@ -1,97 +1,59 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 public class Bullet_Movement : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 10f;
     public GameObject ColorPrefab;
 
-    public float posX;
-    public float posY;
-
-    private Vector2 targetPoint;
-    private bool targetSet = false;
     private Rigidbody2D rb;
-
-    bool enemyhit;
+    private bool enemyHit = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos.z = 0;
+        Vector2 direction = (mousePos - transform.position).normalized;
+
+        rb.linearVelocity = direction * speed;
+
+        // Ignora il player (da migliorare)
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
-            Collider2D playerCol = player.GetComponent<Collider2D>();
-            Collider2D bulletCol = GetComponent<Collider2D>();
-
-            if (playerCol != null && bulletCol != null)
-                Physics2D.IgnoreCollision(bulletCol, playerCol);
+            Physics2D.IgnoreCollision(
+                GetComponent<Collider2D>(),
+                player.GetComponent<Collider2D>()
+            );
         }
-    }
-
-    void Update()
-    {
-        if (!targetSet)
-        {
-            Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-            worldPos.z = 0;
-
-            Vector2 origin = transform.position;
-            Vector2 direction = (worldPos - transform.position).normalized;
-
-            RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, 100f);
-
-            foreach (RaycastHit2D hit in hits)
-            {
-                if (!hit.collider.CompareTag("Player"))
-                {
-                    targetPoint = hit.point;
-                    break;
-                }
-            }
-
-            targetSet = true;
-        }
-        else
-        {
-            Vector2 direction = targetPoint - (Vector2)transform.position;
-
-            if (direction.magnitude < 0.1f)
-            {
-                Destroy(gameObject);
-                targetSet = false;
-                return;
-            }
-
-            posX = direction.x;
-            posY = direction.y;
-
-            rb.linearVelocity = new Vector2(posX, posY).normalized * 5f;
-        }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Se colpisce un nemico
         if (collision.CompareTag("enemy"))
         {
-            enemyhit = true;
+            enemyHit = true;
             collision.GetComponent<SlimeScript>().TakeHit();
             Destroy(gameObject);
         }
         else
         {
-            
+            // Se colpisce un muro 
             Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        if (!enemyhit)
-        { Instantiate(ColorPrefab, transform.position, Quaternion.identity); }
-
+        // Se NON ha colpito un nemico → crea la macchia
+        if (!enemyHit)
+        {
+            Instantiate(ColorPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
