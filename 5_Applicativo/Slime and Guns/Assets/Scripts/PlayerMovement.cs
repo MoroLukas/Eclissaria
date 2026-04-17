@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isDashing = false;
     private float dashTimer = 0f;
-    private float dashCooldownTimer = 0f;
+    private float dashCooldownTimer = 4.0f;
     private Vector2 dashDirection;
 
     void Start()

@@ -3,18 +3,22 @@ using UnityEngine.InputSystem;
 
 public class Gun_Movement : MonoBehaviour
 {
+    public Transform playerTransform;
     public Transform bulletPoint;
     public GameObject bulletPrefab;
+    private SpriteRenderer spriteRenderer;
 
     bool canFire = true;
     float waitingTime = 0.5f;
     float timer;
 
-    public Transform playerTransform;
+    public float distanceFromPlayer = 0.5f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -24,8 +28,6 @@ public class Gun_Movement : MonoBehaviour
         mousePos.z = 0;
 
         Vector3 direction = mousePos - transform.position;
-        
-        
 
         Vector3 scale = Vector3.one;
 
@@ -41,7 +43,6 @@ public class Gun_Movement : MonoBehaviour
         }
 
         transform.localScale = scale;
-
 
 
         if (Mouse.current.leftButton.wasPressedThisFrame && canFire)
