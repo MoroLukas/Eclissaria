@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;      // Disattiva VSync
         Application.targetFrameRate = 60;
         if (Instance != null) { Destroy(gameObject); return; }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
