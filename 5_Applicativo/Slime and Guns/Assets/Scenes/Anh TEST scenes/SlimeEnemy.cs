@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+/*this script was made following this tutorial 2026 | 2D NavMesh | 2D Pathfinding | Unity Game Engine (Simple & Easy) 
+ but using chatgpt to intergate with the SlimeScript from my group*/
+
+
 public class SlimeEnemy : MonoBehaviour
 {
     [Header("Sprites")]
