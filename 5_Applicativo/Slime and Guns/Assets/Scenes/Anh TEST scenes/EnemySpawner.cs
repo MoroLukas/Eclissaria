@@ -22,4 +22,6 @@ public class EnemySpawner : MonoBehaviour
         GameObject newEnemy = Instantiate(enemy, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
         StartCoroutine(spawnEnemy(interval, enemy));
     }
+
+
 }
