@@ -15,8 +15,8 @@ public class PlayerUpgrade : MonoBehaviour
     {
         initaialScale = transform.localScale;
 
-        scale.x = initaialScale.x * 2;
-        scale.y = initaialScale.y * 2;
+        scale.x = initaialScale.x * 1.4f;
+        scale.y = initaialScale.y * 1.4f;
 
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerMovement.speed -= 1f;
@@ -28,8 +28,8 @@ public class PlayerUpgrade : MonoBehaviour
     {
         initaialScale = transform.localScale;
 
-        scale.x = initaialScale.x /2;
-        scale.y = initaialScale.y /2;
+        scale.x = initaialScale.x / 1.4f;
+        scale.y = initaialScale.y / 1.4f;
 
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerMovement.speed += 1f;
