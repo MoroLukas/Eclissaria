@@ -6,7 +6,7 @@ TagManager:
   tags:
   - enemy
   - bullet
-  - DoorPoint
+  - spawner
   layers:
   - Default
   - TransparentFX
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FG
+    uniqueID: 4040976611
     locked: 0
   m_RenderingLayers:
   - Default
