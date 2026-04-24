@@ -10,11 +10,8 @@ public class CollectEnlargmentItem : MonoBehaviour
         {
             Debug.Log("you got the entlargment Item"); //visualizzazione su console
             Destroy(gameObject);
-        }
-    }
 
-    private void OnDestroy()
-    {
-        
+            collision.GetComponent<PlayerUpgrade>().enlargementUpgrade();
+        }
     }
 }
