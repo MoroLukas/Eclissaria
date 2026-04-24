@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private GameObject GameOverUI;
     [SerializeField] private GameObject PauseMenuUI;
+    private bool isPaused = false;
 
     void Awake()
     {
@@ -16,7 +18,6 @@ public class GameManager : MonoBehaviour
         if (Instance != null) { Destroy(gameObject); return; }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -26,7 +27,26 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-       
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            TogglePause();
+        }
+     }
+
+    private void TogglePause()
+    {
+        isPaused = !isPaused;
+
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            PauseMenuUI.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            PauseMenuUI.SetActive(false);
+        }
     }
 
     void OnDestroy()
